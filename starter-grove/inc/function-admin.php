@@ -19,6 +19,8 @@ function sgrove_admin_page(){
 
     add_submenu_page('sgrove_options','sgrove Theme Options', 'Theme Options', 'manage_options','sgrove_theme','sgrove_theme_support_page');
     add_submenu_page('sgrove_options','sgrove Contact Form', 'Contact Form', 'manage_options','sgrove_theme_contact','sgrove_contact_form_page');
+    add_submenu_page('sgrove_options','sgrove Menu Support', 'Custom Menu', 'manage_options','sgrove_theme_menus','sgrove_custom_menu_page');
+    add_submenu_page('sgrove_options','sgrove Post Thumbnail Support', 'Thumbnail Support', 'manage_options', 'sgrove_theme_post_thumbnails','sgrove_activate_post_thumbnails_page');
     add_submenu_page('sgrove_options','sgrove CSS Options', 'Custom CSS', 'manage_options','sgrove_options_css','sgrove_custom_css_page');
 
     // Activate Custom Settings
@@ -79,7 +81,29 @@ function sgrove_custom_settings() {
     add_settings_section('sgrove-contact-section','Contact Form','sgrove_contact_section','sgrove_theme_contact');
 
     add_settings_field('activate-form','Activate Contact Form','sgrove_activate_custom_contact_form','sgrove_theme_contact','sgrove-contact-section');
+ /* ================================
+ * Custom Nav Menus
+ *
+ * ================================
+ * */
+    register_setting('sgrove-custom-menus','activate_custom_menu');
+
+
+    add_settings_section('sgrove-menu-section','Custom Menus','sgrove_custom_menu_callback','sgrove_theme_menus');
+
+    add_settings_field('activate-menu','Activate Custom Menus','sgrove_activate_custom_menus','sgrove_theme_menus','sgrove-menu-section');
+ /*
+ * ================================
+ * Theme Suppor Post-Thumbnails
+ *
+ * ================================
+ * */
+    register_setting('sgrove-post-thumbnails','activate_post_thumbnails');
+    add_settings_section('sgrove-post-thumbnail-section', 'Activate Thumbnails', 'activate_post_thumbnails_callback', 'sgrove_post_thumbnails');
+    add_settings_field('activate-post-thumbnails','Activate Post Thumbnails', 'sgrove_activate_post_thumbnails_callback', 'sgrove_post_thumbnails','sgrove-post-thumbnail-section');
+
 }
+
 
 // Social Handlers
 /*
@@ -175,13 +199,43 @@ function sgrove_contact_section() {
     echo 'Activate and Deactivate the built-in Contact Form';
 }
 function sgrove_activate_custom_contact_form() {
-    $option = get_option('activate_contact');
+    $option = get_option('activate_custom_menu');
     $checked =( @$option == 1 ? 'checked' : '');
-    echo '<label><input type="checkbox" id="custom_contact" name="activate_contact" value="1" '.$checked.' /> </label>';
+    echo '<label><input type="checkbox" id="activate_custom_menu" name="activate_custom_menu" value="1" '.$checked.' /> </label>';
 
 }
 /*
- *
- *
- *
+ *===================
+ * Nav Menus
+ *===================
  * */
+function sgrove_custom_menu_page(){
+    require_once(get_template_directory() . '/inc/templates/sgrove-custom-menus.php');
+}
+function sgrove_custom_menu_callback(){
+    echo 'Activate Custom Menus';
+}
+function sgrove_activate_custom_menus(){
+    $option = get_option('activate_custom_menu');
+    $checked =( @$option == 1 ? 'checked' : '');
+    echo '<label><input type="checkbox" id="activate_custom_menu" name="activate_custom_menu" value="1" '.$checked.' /> </label>';
+
+}
+/*
+ * ================================
+ * Post Thumbnails
+ *
+ * ================================
+ * */
+function sgrove_activate_post_thumbnails_page(){
+    require_once(get_template_directory() . '/inc/templates/sgrove-post-thumbnails.php');
+}
+function activate_post_thumbnails_callback(){
+    echo 'Activate Post Thumbnail Support';
+}
+function sgrove_activate_post_thumbnails_callback(){
+    $option = get_option('activate_post_thumbnails');
+    $checked =( @$option == 1 ? 'checked' : '');
+    echo '<label><input type="checkbox" id="activate_post_thumbnails" name="activate_post_thumbnails" value="1" '.$checked.' /> </label>';
+
+}

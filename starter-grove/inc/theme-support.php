@@ -28,3 +28,4 @@ $background = get_option('custom_background');
 if( @$background == 1 ){
     add_theme_support('custom-background');
 }
+
