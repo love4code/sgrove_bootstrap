@@ -1,10 +1,9 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: grover family
- * Date: 12/21/2015
- * Time: 4:46 PM
- */
-wp_footer();
-
-echo "this is the footer";
+        <footer>
+            <?php wp_nav_menu(array('theme_location', 'secondary')); ?>
+            <?php echo "this is the footer"; ?>
+        </footer>
+        <?php
+        wp_footer();
+        ?>
+    </body>
+</html>

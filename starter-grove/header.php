@@ -1,8 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sgrove</title>
+        <?php wp_head(); ?>
+    </head>
+    <body <?php body_class(array('sgrove','my-class')); ?> >
 <?php
-/**
- * Created by PhpStorm.
- * User: grover family
- * Date: 12/21/2015
- * Time: 4:46 PM
- */
-wp_head();
+wp_nav_menu('theme_location', 'primary');
+?>
+
+<?php
+    echo 'This is the Header';
