@@ -36,3 +36,11 @@ function sgrove_load_admin_scripts( $hook ) {
     wp_enqueue_script('sgrove-admin-script');
 }
 add_action('admin_enqueue_scripts','sgrove_load_admin_scripts');
+function sgrove_enqueue_scripts(){
+    wp_register_style('bootstrapCSS', get_template_directory_uri() . '/css/vendor/bootstrap.min.css', array(),'3.3.6', 'all');
+    wp_enqueue_style('bootstrapCSS');
+    wp_enqueue_script('jQuery');
+    wp_register_script('bootstrapJS', get_template_directory_uri() . '/js/vendor/bootstrap.min.js', array('jquery'), '3.3.6',true);
+    wp_enqueue_script('bootstrapJS');
+}
+add_action('init','sgrove_enqueue_scripts');
